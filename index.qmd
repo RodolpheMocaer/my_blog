@@ -1,0 +1,43 @@
+---
+title: "Bienvenue sur Mon Blog"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: true
+---
+
+# Bienvenue sur Mon Blog
+
+Voici les étapes qui m'ont permis de créer mon blog.
+
+# Création du projet de sites sous github
+
+## Etape 1
+
+La composition du projet comprend plusieurs fichiers, dont index.qmd qui sert de page d'accueil à notre blog, ainsi que \_quarto.yml, le fichier de configuration spécifique à Quarto.
+
+## Etape 2
+
+## Etape 3
+
+Création d'un nouveau projet github 
+
+## Etape 4
+
+Configuration des paramétres grâce aux commandes bash : 
+  - git config user.name "<votre username>"
+  - git config user.email "<votre email>"
+  
+Vérification de la bonne configuration des paramétres :
+  - git config user.name
+  - git config user.email
+  
+## Etepa 5 
+
+Configuration du remote grâce à la commande bash : git remote add git@github.com:<votreusernamegithub>/my_blog.git
+  
