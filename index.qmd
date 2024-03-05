@@ -37,7 +37,9 @@ Vérification de la bonne configuration des paramétres :
   - git config user.name
   - git config user.email
   
-## Etepa 5 
+## Etape 5 
 
-Configuration du remote grâce à la commande bash : git remote add git@github.com:<votreusernamegithub>/my_blog.git
+Configuration du remote grâce à la commande bash : git remote add git@github.com:<votreusernamegithub>/my_blog.git. De plus nous vérfier grace à cette commande bash : git remote -v que la configuration est bonne en effet, cette commande dans renvoyer 2 lignes (une pour push et une fetch)
   
+## Etape 6
+
