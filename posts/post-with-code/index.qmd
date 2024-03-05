@@ -24,4 +24,34 @@ Pour installer le package `olympicsWeather` depuis GitHub, vous pouvez utiliser 
 #remotes::install_github("NomUtilisateur/olympicsWeather")
 ```
 
+```{r}
+library(olympicsWeather)
+```
+
+
+Nous pouvons grâce à notre packages visualiser les données météorologique pour le satde de france.
+
+```{r}
+météo <- get_forecast("stade de france")
+Graphique_pluie(météo)
+Graphique_temperature(météo)
+```
+
+De plus, nous pouvons également visualiser les données météorologique pour tahiti.
+
+```{r}
+météo_tahiti <- get_forecast("tahiti")
+Graphique_pluie(météo_tahiti)
+Graphique_temperature(météo_tahiti)
+```
+
+Enfin, nous pouvons  visualiser les données météorologique pour les points GPS suivant : .
+43.276703, 5.334791.
+
+```{r}
+météo_gps <- get_forecast(c(43.276703,5.334791))
+Graphique_pluie(météo_gps)
+Graphique_temperature(météo_gps)
+```
+
 
