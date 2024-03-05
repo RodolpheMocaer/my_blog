@@ -43,3 +43,4 @@ Configuration du remote grâce à la commande bash : git remote add git@github.c
   
 ## Etape 6
 
+Tous les dossiers sont exporté vers Github.

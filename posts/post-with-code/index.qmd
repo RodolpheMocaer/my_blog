@@ -6,8 +6,22 @@ categories: [news, code, analysis]
 image: "image.jpg"
 ---
 
-This is a post with executable code.
+## Librairie olympicsWeather
 
-```{r}
-1 + 1
+La librairie `olympicsWeather` est un package R conçu pour fournir des fonctionnalités liées à l'analyse météorologique des Jeux olympiques. Elle offre des outils pour récupérer, explorer et analyser les données météorologiques associées aux différentes éditions des Jeux olympiques.
+
+### Installation
+
+Pour installer le package `olympicsWeather` depuis GitHub, vous pouvez utiliser le package `remotes`. Exécutez les commandes suivantes dans la console R :
+
+```{r,eval=FALSE}
+# Installation du package remotes si ce n'est pas déjà fait
+#if (!requireNamespace("remotes", quietly = #TRUE)) {
+#  install.packages("remotes")
+#}
+
+# Installation du package olympicsWeather depuis GitHub
+#remotes::install_github("NomUtilisateur/olympicsWeather")
 ```
+
+
