@@ -9,7 +9,7 @@
 <meta name="author" content="Harlow Malloc">
 <meta name="dcterms.date" content="2024-03-05">
 
-<title>My_blog - Post With Code</title>
+<title>My_blog - Visualisation météorologique</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -142,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post With Code</h1>
+      <h1 class="title">Visualisation météorologique</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">news</div>
                 <div class="quarto-category">code</div>
@@ -219,7 +219,7 @@ when loading 'olympicsWeather'</code></pre>
 <pre><code>Passing 1 address to the ArcGIS single address geocoder</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Query completed in: 0.8 seconds</code></pre>
+<pre><code>Query completed in: 0.9 seconds</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Graphique_pluie</span>(météo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -241,7 +241,7 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <pre><code>Passing 1 address to the ArcGIS single address geocoder</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Query completed in: 0.2 seconds</code></pre>
+<pre><code>Query completed in: 0.3 seconds</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Graphique_pluie</span>(météo_tahiti)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -258,14 +258,8 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
 <p>Enfin, nous pouvons visualiser les données météorologique pour les points GPS suivant : . 43.276703, 5.334791.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>météo_gps <span class="ot">&lt;-</span> <span class="fu">get_forecast</span>(<span class="st">"gps"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Passing 1 address to the ArcGIS single address geocoder</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Query completed in: 0.2 seconds</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Graphique_pluie</span>(météo_tahiti)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>météo_gps <span class="ot">&lt;-</span> <span class="fu">get_forecast</span>(<span class="fu">c</span>(<span class="fl">43.276703</span>,<span class="fl">5.334791</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Graphique_pluie</span>(météo_gps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Scale for y is already present.
 Adding another scale for y, which will replace the existing scale.</code></pre>
@@ -273,7 +267,7 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Graphique_temperature</span>(météo_tahiti)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Graphique_temperature</span>(météo_gps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
 </div>
