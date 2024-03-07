@@ -17,30 +17,6 @@ Voici les étapes qui m'ont permis de créer mon blog.
 
 # Création du projet de sites sous github
 
-## Etape 1
+# La mise en place du packages sous github 
 
-La composition du projet comprend plusieurs fichiers, dont index.qmd qui sert de page d'accueil à notre blog, ainsi que \_quarto.yml, le fichier de configuration spécifique à Quarto.
-
-## Etape 2
-
-## Etape 3
-
-Création d'un nouveau projet github 
-
-## Etape 4
-
-Configuration des paramétres grâce aux commandes bash : 
-  - git config user.name "<votre username>"
-  - git config user.email "<votre email>"
-  
-Vérification de la bonne configuration des paramétres :
-  - git config user.name
-  - git config user.email
-  
-## Etape 5 
-
-Configuration du remote grâce à la commande bash : git remote add git@github.com:<votreusernamegithub>/my_blog.git. De plus nous vérfier grace à cette commande bash : git remote -v que la configuration est bonne en effet, cette commande dans renvoyer 2 lignes (une pour push et une fetch)
-  
-## Etape 6
-
-Tous les dossiers sont exporté vers Github.
+# Le post de blog. 

@@ -1,0 +1,300 @@
+---
+title: "Exercice semaine 4"
+format: html
+editor: visual
+---
+
+# Exercice 1
+
+```{r}
+library(tibble)
+library(lubridate)
+library(tidygeocoder)
+library(leaflet)
+library(sf)
+library(testthat)
+```
+
+## Question 1
+
+```{r}
+library(devtools)
+library(httr2)
+library(jsonlite)
+```
+
+## Question 2
+
+```{r}
+#create_package("olympicsWeather")
+```
+
+Il n'est pas nécessaire d'installer explicitement la librairie #usethis car la fonction #create_packages est déja implémenter de base dans R.
+
+## Question 3
+
+```{r}
+#usethis::use_r("get_weather_forecast")
+```
+
+## Question 4
+
+```{r}
+url <- "https://api.open-meteo.com/v1/forecast"
+
+request(url) |>
+  req_url_query(latitude = 48.85,
+                longitude = 2.35,
+                hourly= c("temperature_2m",
+                          "apparent_temperature",
+                          "precipitation_probability",
+                          "precipitation"),
+                .multi = "comma") |>
+  req_perform() |>
+  resp_body_json() |>
+  tibble::as_tibble() |>
+  View()
+```
+
+## Question 5
+
+À l'aide de ce code, nous générons un tibble composé de neuf colonnes, incluant notamment les latitudes et longitudes, les unités de chaque ligne, et une colonne "hourly", qui est particulièrement intéressante. De plus, il y a quatre lignes correspondant à chaque mesure d'un paramètre que nous avons choisi de recueillir (température, précipitation, etc.). Dans la dernière colonne ("hourly"), nous pouvons trouver une liste pour chaque paramètre mentionné précédemment, reflétant l'évolution dans le temps à une adresse spécifique.
+
+Cependant, afin de collecter tous ces paramètres pour les sites olympiques, nous désirons pouvoir ajuster la longitude et la latitude correspondant à chaque site. Par conséquent, nous devons créer une fonction qui recueille initialement la latitude et la longitude.
+
+## Question 6
+
+## Question 7
+
+```{r}
+perform_request <- function(latitude, longitude){
+  url <- "https://api.open-meteo.com/v1/forecast"
+  request(url) |>
+    req_url_query(latitude = latitude,
+                  longitude = longitude,
+                  hourly= c("temperature_2m",
+                            "apparent_temperature",
+                            "precipitation_probability",
+                            "precipitation"),
+                  .multi = "comma") |>
+    req_perform() |>
+    resp_body_json() |>
+    as_tibble()
+}
+```
+
+```{r}
+resp <- perform_request(37.7749, -122.4194)
+view(resp)
+```
+
+Nous pouvons constater que notre fonction opère de manière effective, nous permettant de recueillir les données météorologiques de n'importe quel point en utilisant simplement ses coordonnées GPS.
+
+## Question 8
+
+```{r}
+unnest_response <- function(resp){
+  hourly_data <- resp$hourly
+  if (length(hourly_data) == 0) {
+    stop("Aucune donnée dans la colonne 'hourly'.")
+  }
+  output_tibble <- tibble(
+    "heure au tz UTC" = with_tz(unlist(hourly_data[[1]]), tzone = "UTC"),
+    "données de température" = unlist(hourly_data[[2]]),
+    "données de température ressentie" = unlist(hourly_data[[3]]),
+    "probabilité de pluie" = unlist(hourly_data[[4]]),
+    "precipitation en mm" = unlist(hourly_data[[5]])
+  )
+  return(output_tibble)
+}
+```
+
+```{r}
+resp2 <- unnest_response(resp)
+resp2
+```
+
+Grâce à cette fonction, nous sommes en mesure de formater les données préalablement recueillies à l'aide de la fonction "perform_request".
+
+## Question 9
+
+```{r}
+usethis::use_test("unnest_response")
+test_file("tests/testthat/test-unnest_response.R")
+```
+
+Nous constatons que la fonction "unnest_response" réussit tous les tests.
+
+## Question 10
+
+```{r}
+address_to_gps <- function(adresse) {
+  df_adresse <- data.frame("nom" = character(), addr = character(), stringsAsFactors = FALSE)
+
+  df_adresse <- rbind(df_adresse, data.frame(addr = adresse), stringsAsFactors = FALSE)
+
+  resultat_geocodage <- df_adresse |>
+    geocode(addr, method = 'arcgis')
+
+  df_adresse <- resultat_geocodage
+
+  return(df_adresse)
+  print(df_adresse)
+}
+```
+
+```{r}
+resultat <- as_tibble(address_to_gps("Bâtiment Erdre, Chem. de la Censive du Tertre, 44300 Nantes"))
+```
+
+```{r}
+ma_carte <- leaflet()  |> 
+  addTiles()  |> 
+  addMarkers(lng = resultat$long, lat = resultat$lat, popup = "IAE Nantes")
+ma_carte
+```
+
+Nous validons l'exactitude des coordonnées de l'adresse renseignée trouver à l'aide de notre fonction grâce à une visualisation.
+
+## Question 11
+
+```{r}
+get_gps_coordinate <- function(adresse) {
+  resultat_geocodage <- address_to_gps(adresse)
+
+  coordinates <- c(resultat_geocodage$lat, resultat_geocodage$long)
+
+  return(coordinates)
+  print(coordinates)
+}
+get_gps_coordinate("Champ de Mars, 5 Av. Anatole France, 75007 Paris")
+```
+
+Notre fonction retourne correctement les coordonnées du lieu demandé (Celui de la tour eiffeil).
+
+## Question 12
+
+```{r}
+forecast.numeric <- function(coordonnée) {
+  if (!is.numeric(coordonnée) || length(coordonnée) != 2) {
+    stop("L'argument coordonnée doit être un vecteur numérique de taille 2 (latitude, longitude).")
+  }}
+```
+
+```{r}
+get_forecast.numeric <- function(coordonnees) {
+  forecast.numeric(coordonnees)
+
+  resultat_previsions <- perform_request(latitude = coordonnees[1], longitude = coordonnees[2])
+  resultat_traitement <- unnest_response(resultat_previsions)
+
+  return(resultat_traitement)
+}
+```
+
+```{r}
+résultat <- get_forecast.numeric(c(37.7749, -122.4194))
+head(résultat,5)
+```
+
+```{r}
+get_forecast.numeric("LIeu-dit le Ménec, 56340 Carnac")
+
+```
+
+Notre fonction est opérationnelle, car elle génère correctement un message lorsqu'un vecteur n'est ni numérique ni de taille 2, et elle retourne efficacement les données météorologiques des coordonnées fournies, lorque c'est un vecteur numérique de taille 2.
+
+## Question 13
+
+```{r}
+forecast.character <- function(address) {
+  if (!is.character(address) || length(address) != 1) {
+    stop("L'argument address doit être de type character et de taille 1.")
+  }
+}
+```
+
+```{r}
+get_forecast.character <- function(address) {
+  forecast.character(address)
+
+  coordinates <- get_gps_coordinate(address)
+
+  resultat_previsions <- perform_request(latitude = coordinates[1], longitude = coordinates[2])
+  resultat_traitement <- unnest_response(resultat_previsions)
+
+  return(resultat_traitement)
+}
+```
+
+```{r}
+resultat_previsions <- get_forecast.character("Pointe de la Torche, 29120 Plomeur France")
+head(resultat_previsions,5)
+```
+
+```{r}
+get_forecast.character(c(37.7749, -122.4194))
+
+```
+
+Nous pouvons tirer la même conclusion que pour la fonction précédente : elle est fonctionnelle.
+
+## Question 14
+
+Nous pouvons dés lors construite notre fonction "get_forecast et la documenter.
+
+```{r}
+#' Obtenir les prévisions météo à partir d'une adresse.
+#'
+#' Cette fonction prend une adresse en tant qu'argument et retourne les prévisions
+#' météo associées à cette adresse.
+#'
+#' @param x Adresse (character) ou coordonnées (numeric).
+#'
+#' @return Un tibble contenant les données des prévisions météo, tel que :
+#'          - L'heure au tz UTC
+#'          - Les données de température en °C
+#'          - Les données de température ressentie en °C
+#'          - La probabilité de pluie en %
+#'          - La precipitation en mm
+#'
+#' @examples
+#' # Exemple d'utilisation
+#' # Pour une adresse
+#' resultats_finals <- get_forecast("15 rue louis Gaudin, Nantes,FRANCE")
+#' print(resultats_finals)
+#'
+#' # Pour des coordonnées numériques
+#' resultats_finals <- get_forecast(c(37.7749, -122.4194))
+#' print(resultats_finals)
+#'
+#' @export
+#'
+#' @seealso \code{\link{get_forecast.numeric}}, \code{\link{get_forecast.character}}
+#'
+#'#' @keywords météo prévisions service-en-ligne
+#'
+#' @author MOCAËR Rodolphe
+#'
+get_forecast <- function(x) {
+  if (is.numeric(x)) {
+    get_forecast.numeric(x)
+  } else if (is.character(x)) {
+    get_forecast.character(x)
+  } else {
+    stop("L'argument doit être de type numeric (coordonnées) ou character (adresse).")
+  }
+}
+```
+
+```{r}
+?get_forecast
+```
+
+## Question 15
+
+```{r}
+devtools::document()
+```
+
+## Question 16
