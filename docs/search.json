@@ -1,0 +1,79 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog"
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Bienvenue sur mon Blog",
+    "section": "",
+    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Visualisation météorologique",
+    "section": "",
+    "text": "La librairie olympicsWeather est un package R conçu pour fournir des fonctionnalités liées à l’analyse météorologique des Jeux olympiques. Elle offre des outils pour récupérer, explorer et analyser les données météorologiques associées aux différentes éditions des Jeux olympiques.\n\n\nPour installer le package olympicsWeather depuis GitHub, vous pouvez utiliser le package remotes. Exécutez les commandes suivantes dans la console R :\n\n# Installation du package remotes si ce n'est pas déjà fait\n#if (!requireNamespace(\"remotes\", quietly = #TRUE)) {\n#  install.packages(\"remotes\")\n#}\n\n# Installation du package olympicsWeather depuis GitHub\n#remotes::install_github(\"NomUtilisateur/olympicsWeather\")\n\n\nlibrary(olympicsWeather)\n\nWarning: replacing previous import 'devtools::test_file' by\n'testthat::test_file' when loading 'olympicsWeather'\n\n\nWarning: replacing previous import 'httr2::with_mock' by 'testthat::with_mock'\nwhen loading 'olympicsWeather'\n\n\nWarning: replacing previous import 'httr2::local_mock' by\n'testthat::local_mock' when loading 'olympicsWeather'\n\n\nNous pouvons grâce à notre packages visualiser les données météorologique pour le satde de france.\n\nmétéo &lt;- get_forecast(\"stade de france\")\n\nPassing 1 address to the ArcGIS single address geocoder\n\n\nQuery completed in: 0.9 seconds\n\nGraphique_pluie(météo)\n\nScale for y is already present.\nAdding another scale for y, which will replace the existing scale.\n\n\n\n\nGraphique_temperature(météo)\n\n\n\n\nDe plus, nous pouvons également visualiser les données météorologique pour tahiti.\n\nmétéo_tahiti &lt;- get_forecast(\"tahiti\")\n\nPassing 1 address to the ArcGIS single address geocoder\n\n\nQuery completed in: 0.3 seconds\n\nGraphique_pluie(météo_tahiti)\n\nScale for y is already present.\nAdding another scale for y, which will replace the existing scale.\n\n\n\n\nGraphique_temperature(météo_tahiti)\n\n\n\n\nEnfin, nous pouvons visualiser les données météorologique pour les points GPS suivant : . 43.276703, 5.334791.\n\nmétéo_gps &lt;- get_forecast(c(43.276703,5.334791))\nGraphique_pluie(météo_gps)\n\nScale for y is already present.\nAdding another scale for y, which will replace the existing scale.\n\n\n\n\nGraphique_temperature(météo_gps)"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#librairie-olympicsweather",
+    "href": "posts/post-with-code/index.html#librairie-olympicsweather",
+    "title": "Visualisation météorologique",
+    "section": "",
+    "text": "La librairie olympicsWeather est un package R conçu pour fournir des fonctionnalités liées à l’analyse météorologique des Jeux olympiques. Elle offre des outils pour récupérer, explorer et analyser les données météorologiques associées aux différentes éditions des Jeux olympiques.\n\n\nPour installer le package olympicsWeather depuis GitHub, vous pouvez utiliser le package remotes. Exécutez les commandes suivantes dans la console R :\n\n# Installation du package remotes si ce n'est pas déjà fait\n#if (!requireNamespace(\"remotes\", quietly = #TRUE)) {\n#  install.packages(\"remotes\")\n#}\n\n# Installation du package olympicsWeather depuis GitHub\n#remotes::install_github(\"NomUtilisateur/olympicsWeather\")\n\n\nlibrary(olympicsWeather)\n\nWarning: replacing previous import 'devtools::test_file' by\n'testthat::test_file' when loading 'olympicsWeather'\n\n\nWarning: replacing previous import 'httr2::with_mock' by 'testthat::with_mock'\nwhen loading 'olympicsWeather'\n\n\nWarning: replacing previous import 'httr2::local_mock' by\n'testthat::local_mock' when loading 'olympicsWeather'\n\n\nNous pouvons grâce à notre packages visualiser les données météorologique pour le satde de france.\n\nmétéo &lt;- get_forecast(\"stade de france\")\n\nPassing 1 address to the ArcGIS single address geocoder\n\n\nQuery completed in: 0.9 seconds\n\nGraphique_pluie(météo)\n\nScale for y is already present.\nAdding another scale for y, which will replace the existing scale.\n\n\n\n\nGraphique_temperature(météo)\n\n\n\n\nDe plus, nous pouvons également visualiser les données météorologique pour tahiti.\n\nmétéo_tahiti &lt;- get_forecast(\"tahiti\")\n\nPassing 1 address to the ArcGIS single address geocoder\n\n\nQuery completed in: 0.3 seconds\n\nGraphique_pluie(météo_tahiti)\n\nScale for y is already present.\nAdding another scale for y, which will replace the existing scale.\n\n\n\n\nGraphique_temperature(météo_tahiti)\n\n\n\n\nEnfin, nous pouvons visualiser les données météorologique pour les points GPS suivant : . 43.276703, 5.334791.\n\nmétéo_gps &lt;- get_forecast(c(43.276703,5.334791))\nGraphique_pluie(météo_gps)\n\nScale for y is already present.\nAdding another scale for y, which will replace the existing scale.\n\n\n\n\nGraphique_temperature(météo_gps)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Bienvenue sur Mon Blog",
+    "section": "",
+    "text": "Voici les étapes qui m’ont permis de créer mon blog."
+  },
+  {
+    "objectID": "index.html#etape-1",
+    "href": "index.html#etape-1",
+    "title": "Bienvenue sur Mon Blog",
+    "section": "Etape 1",
+    "text": "Etape 1\nLa composition du projet comprend plusieurs fichiers, dont index.qmd qui sert de page d’accueil à notre blog, ainsi que _quarto.yml, le fichier de configuration spécifique à Quarto."
+  },
+  {
+    "objectID": "index.html#etape-2",
+    "href": "index.html#etape-2",
+    "title": "Bienvenue sur Mon Blog",
+    "section": "Etape 2",
+    "text": "Etape 2"
+  },
+  {
+    "objectID": "index.html#etape-3",
+    "href": "index.html#etape-3",
+    "title": "Bienvenue sur Mon Blog",
+    "section": "Etape 3",
+    "text": "Etape 3\nCréation d’un nouveau projet github"
+  },
+  {
+    "objectID": "index.html#etape-4",
+    "href": "index.html#etape-4",
+    "title": "Bienvenue sur Mon Blog",
+    "section": "Etape 4",
+    "text": "Etape 4\nConfiguration des paramétres grâce aux commandes bash : - git config user.name “” - git config user.email “”\nVérification de la bonne configuration des paramétres : - git config user.name - git config user.email"
+  },
+  {
+    "objectID": "index.html#etape-5",
+    "href": "index.html#etape-5",
+    "title": "Bienvenue sur Mon Blog",
+    "section": "Etape 5",
+    "text": "Etape 5\nConfiguration du remote grâce à la commande bash : git remote add git@github.com:/my_blog.git. De plus nous vérfier grace à cette commande bash : git remote -v que la configuration est bonne en effet, cette commande dans renvoyer 2 lignes (une pour push et une fetch)"
+  },
+  {
+    "objectID": "index.html#etape-6",
+    "href": "index.html#etape-6",
+    "title": "Bienvenue sur Mon Blog",
+    "section": "Etape 6",
+    "text": "Etape 6\nTous les dossiers sont exporté vers Github."
+  }
+]
