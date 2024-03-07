@@ -46,6 +46,25 @@
       ],
       "Hash": "b765b28387acc8ec9e9c1530713cb19c"
     },
+     "arrow": {
+      "Package": "arrow",
+      "Version": "14.0.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R"      ],
+      "Hash": "hash_de_arrow"
+    },
+    "RSQLite": {
+      "Package": "RSQLite",
+      "Version": "2.3.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "hash_de_rsqlite"
+    },
     "Matrix": {
       "Package": "Matrix",
       "Version": "1.6-5",
@@ -707,6 +726,18 @@
         "methods"
       ],
       "Hash": "15e9634c0fcd294799e9b2e929ed1b86"
+    },
+    "geosphere": {
+      "Package": "geosphere",
+      "Version": "1.5-18",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R",
+        "Rcpp",
+        "sp"
+      ],
+      "Hash": "45aa4def70a402e7d20efde490c13ecb"
     },
     "gert": {
       "Package": "gert",
