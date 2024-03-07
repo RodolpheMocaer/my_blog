@@ -1,0 +1,219 @@
+---
+title: "Exercice antérieure"
+author: "Rodolphe MOCAER"
+date: "2024-03-02"
+categories: [news]
+---
+
+# Exercice 1
+ 
+```{r}
+library(geosphere)
+library(tidygeocoder)
+library(leaflet)
+
+```
+
+##Question 1 :
+
+```{r}
+
+
+```
+
+##Question 2 :
+
+```{r}
+data_ex = read.csv2("/Users/rododo/Desktop/ECAP/R avancé/paris-2024-sites-olympiques-et-paralympiques-franciliens.csv")
+data_ex = data.frame(data_ex)
+```
+
+```{r}
+names(data_ex)
+str(data_ex)
+```
+
+Il est possible de constater la présenvce de quatres colonnes désignées par les noms "geo_point", "nom", "sites_olympiques_paralympiques", et "sport". En outre, la première colonne renferme les coordonnées géographiques des sites (latitude, longitude), la seconde contient les noms des lieux, la troisième spécifie si le lieu accueille des épreuves olympiques, paralympiques, ou les deux, tandis que la dernière colonne correspond au sport pratiqué sur le site.
+
+```{r}
+dim(data_ex)
+
+```
+
+Nous pouvons voir que le data frame contient 31 lignes.
+
+##Question 3 :
+
+```{r}
+phrases_a_rechercher <- c("Site olympique")
+resultat_olymp <- data_ex[grep(paste(phrases_a_rechercher, collapse="|"), data_ex$sites_olympiques_paralympiques), ]
+print(nrow(resultat_olymp))
+print(table(resultat_olymp$sites_olympiques_paralympiques))
+```
+
+Il est notable qu'il existe précisément 26 sites olympiques, dont 16 sont également désignés comme sites paralympiques.
+
+##Question 4 :
+
+```{r}
+phrases_a_rechercher <- c("Site paralympique")
+resultat_para <- data_ex[grep(paste(phrases_a_rechercher, collapse="|"), data_ex$sites_olympiques_paralympiques), ]
+print(nrow(resultat_para))
+print(table(resultat_para$sites_olympiques_paralympiques))
+```
+
+Il est observé qu'il existe précisément 19 sites paralympiques, parmi lesquels 16 sont simultanément désignés comme sites olympiques.
+
+##Question 5 : 
+
+```{r}
+resultat_sport <- data_ex[grep(",", data_ex$sports), ]
+print(nrow(resultat_sport))
+```
+
+Au sein de l'ensemble des sites, on constate la présence de 19 installations qui accueillent diverses disciplines sportives. Ces 19 sites comprennent :
+
+```{r}
+for (nom in resultat_sport$nom) {
+  cat("- ", nom, "\n")
+}
+```
+
+##Question 6 : 
+
+```{r}
+phrases_a_rechercher <- c("Site paralympique")
+resultat_para_filtre <- resultat_sport[grep(paste(phrases_a_rechercher, collapse="|"), resultat_sport$sites_olympiques_paralympiques), ]
+print(table(resultat_para_filtre$sites_olympiques_paralympiques))
+```
+
+Il est à noter que seize sites, dédiés à plusieurs disciplines sportives, accueillent également au moins une discipline sportive paralympique.
+
+##Question 7 : 
+
+```{r}
+data_ex$nb_virgules <- sapply(strsplit(as.character(data_ex$sports), ","), function(x) length(x) - 1)
+max_virgules <- max(data_ex$nb_virgules)
+lignes_max_virgules <- data_ex[data_ex$nb_virgules == max_virgules, ]
+print(max_virgules)
+print(nrow(lignes_max_virgules))
+```
+
+Nous observons la présence de huit sites, chacun proposant un accueil sportif pour trois disciplines, ce nombre représentant le maximum pour les Jeux Olympiques de Paris. Ces sites étant :
+
+```{r}
+for (nom in lignes_max_virgules$nom) {
+  cat("- ", nom, "\n")
+}
+```
+
+##Question 8 : 
+
+```{r}
+data_ex$nb_sports <- strsplit (as.character(data_ex$sports), ",")
+```
+
+```{r}
+disciplines <- unique(unlist(data_ex$nb_sports))
+sites_disciplines <- numeric(length = length(disciplines))
+
+for (i in seq_along(disciplines)) {
+  sites_disciplines[i] <- sum(sapply(data_ex$nb_sports, function(x) disciplines[i] %in% x))
+}
+
+max_discipline_sites <- disciplines[which.max(sites_disciplines)]
+max_sites_discipline <- data_ex[sapply(data_ex$nb_sports, function(x) max_discipline_sites %in% x),]
+
+```
+
+```{r}
+cat("La discipline", max_discipline_sites, "sera celle qui se déroulera sur le plus grand nombre de sites.", "\n")
+cat("Les sites associés à cette discipline sont :\n",
+    paste("- ", max_sites_discipline$nom, collapse = "\n"), "\n")
+```
+
+##Question 9 : 
+
+Séparation de la colonnes géo_point en 2 afin d'avoir les latitudes et longitudes séparer.
+
+```{r}
+geo_coords <- strsplit(as.character(data_ex$geo_point), ",")
+data_ex$geo_lat <- as.numeric(sapply(geo_coords, function(x) x[1]))
+data_ex$geo_lon <- as.numeric(sapply(geo_coords, function(x) x[2]))
+data_ex$geo_point <- NULL
+```
+
+Par conséquent, nous identifions les sites les plus proches à vol d'oiseau.
+
+```{r}
+haversine_distance <- function(lat1, lon1, lat2, lon2) {
+  distm(c(lon1, lat1), c(lon2, lat2), fun = distHaversine)
+}
+min_distance <- Inf
+nom_site1 <- ''
+nom_site2 <- ''
+for (i in 1:(nrow(data_ex) - 1)) {
+  for (j in (i + 1):nrow(data_ex)) {
+    distance <- haversine_distance(data_ex$geo_lat[i], data_ex$geo_lon[i], data_ex$geo_lat[j], data_ex$geo_lon[j])
+        if (distance < min_distance) {
+      min_distance <- distance
+      nom_site1 <- data_ex$nom[i]
+      nom_site2 <- data_ex$nom[j]
+    }
+  }
+}
+```
+
+```{r}
+cat("Les deux sites les plus proches sont :", nom_site1, "et", nom_site2, "\n")
+```
+
+## Question 10 :
+
+Nous identifions les sites les plus éloignés à vol d'oiseau.
+
+```{r}
+haversine_distance <- function(lat1, lon1, lat2, lon2) {
+  distm(c(lon1, lat1), c(lon2, lat2), fun = distHaversine)
+}
+max_distance <- 0
+nom_site1 <- ''
+nom_site2 <- ''
+for (i in 1:(nrow(data_ex) - 1)) {
+  for (j in (i + 1):nrow(data_ex)) {
+    distance <- haversine_distance(data_ex$geo_lat[i], data_ex$geo_lon[i], data_ex$geo_lat[j], data_ex$geo_lon[j])
+        if (distance > max_distance) {
+      max_distance <- distance
+      nom_site1 <- data_ex$nom[i]
+      nom_site2 <- data_ex$nom[j]
+    }
+  }
+}
+```
+
+```{r}
+cat("Les deux sites les plus loins sont :", nom_site1, "et", nom_site2, "\n")
+```
+
+## Question 11 :
+
+```{r}
+barycentre_lat <- sum(data_ex$geo_lat) / nrow(data_ex)
+barycentre_lon <- sum(data_ex$geo_lon) / nrow(data_ex)
+cat("Les coordonnées du barycentre sont : (", barycentre_lat, ",", barycentre_lon, ")\n")
+```
+
+```{r}
+coords <- data.frame(lat = barycentre_lat, lon = barycentre_lon)
+result <- tidygeocoder::reverse_geocode(coords, lat = "lat", lon = "lon", method = "osm")
+cat("L'adresse correspondant aux coordonnées (", coords$lat, ",", coords$lon, ") est :\n", result$address, "\n")
+```
+
+Nous pouvons visualiser l'emplacement grâce à une carte :
+
+```{r}
+ma_carte <- leaflet() %>%
+  addTiles() %>%
+  addMarkers(lng = barycentre_lon, lat = barycentre_lat, popup = "Barycentre")
+ma_carte
+```
