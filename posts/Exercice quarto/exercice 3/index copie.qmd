@@ -5,215 +5,226 @@ date: "2024-03-02"
 categories: [news]
 ---
 
-# Exercice 1
- 
+## Exercice 3:
+
 ```{r}
-library(geosphere)
-library(tidygeocoder)
-library(leaflet)
+library(stringr)
+library(lubridate)
+library(arrow)
+library(dplyr)
+library(tidyr)
+library(jsonlite)
+library(RSQLite)
+```
+
+#Question 1
+
+```{r}
+chemin_dossier <- "/Users/rododo/Desktop/ECAP/R avancé/tp3"
+fichiers <- list.files(chemin_dossier, full.names = TRUE)
+extensions <- tools::file_ext(fichiers)
+resultat <- data.frame(Fichier = fichiers, Extension = extensions)
+print(resultat)
+```
+
+Il est possible d'observer la présence de trois fichiers distincts portant les extensions sqlite, json et parquet, respectivement.
+
+#Question 2:
+
+```{r}
+chemin_fichier_parquet <- "/Users/rododo/Desktop/ECAP/R avancé/tp3/tokyo_athletes.parquet"
+table_parquet <-read_parquet(chemin_fichier_parquet)
+dim(table_parquet)
+```
+
+Les Dimensions de la tables sont : - 11085 lignes (observations) - 3 colonnes
+
+```{r}
+cat("Le noms des colonnes sont :\n",
+    paste("- ", colnames(table_parquet), collapse = "\n"), "\n")
+```
+
+#Question 3:
+
+```{r}
+chemin_fichier_json <- "/Users/rododo/Desktop/ECAP/R avancé/tp3/olympics_athletes.json"
+table_json <- fromJSON(chemin_fichier_json)
+dim(table_json)
+```
+
+Les Dimensions de la tables sont : - 269731 lignes (observations) - 13 colonnes
+
+```{r}
+cat("Le noms des colonnes sont :\n",
+    paste("- ", colnames(table_json), collapse = "\n"), "\n")
+```
+
+#Question 4:
+
+```{r}
+chemin_base_SQL <- "/Users/rododo/Desktop/ECAP/R avancé/tp3/data.sqlit"
+connexion <- dbConnect(SQLite(), dbname = chemin_base_SQL)
+tables_presentes <- dbListTables(connexion)
+print(paste("Tables présentes dans la base de données :", tables_presentes))
+```
+
+#Question 5:
+
+```{r}
+dbWriteTable(connexion, "olympics_athletes", fromJSON(chemin_fichier_json),overwrite = TRUE)
+dbWriteTable(connexion, "tokyo_athletes", read_parquet(chemin_fichier_parquet),overwrite = TRUE)
 
 ```
 
-##Question 1 :
+#Question 6:
 
 ```{r}
-
-
+colonnes_olympics_athletes <- dbListFields(connexion, "olympics_athletes")
+cat("Le nom des colonnes est :\n")
+cat(paste("- ", colonnes_olympics_athletes, collapse = "\n "), "\n")
 ```
 
-##Question 2 :
+#Question 7:
 
 ```{r}
-data_ex = read.csv2("/Users/rododo/Desktop/ECAP/R avancé/paris-2024-sites-olympiques-et-paralympiques-franciliens.csv")
-data_ex = data.frame(data_ex)
+table_olympics_athletes <- dbReadTable(connexion, "olympics_athletes")
+olympics_athletes <- as_tibble(table_olympics_athletes)
+print(str(olympics_athletes))
 ```
 
+Nous pouvons constater que la table "olympics_athletes" correspond à celle que nous avons précédemment importée sous le nom de "table_json".
+
+#Question 8:
+
 ```{r}
-names(data_ex)
-str(data_ex)
+olympics_athletes <- olympics_athletes |> 
+  mutate(Sex = as.factor(Sex))
+str(olympics_athletes$Sex)
 ```
 
-Il est possible de constater la présenvce de quatres colonnes désignées par les noms "geo_point", "nom", "sites_olympiques_paralympiques", et "sport". En outre, la première colonne renferme les coordonnées géographiques des sites (latitude, longitude), la seconde contient les noms des lieux, la troisième spécifie si le lieu accueille des épreuves olympiques, paralympiques, ou les deux, tandis que la dernière colonne correspond au sport pratiqué sur le site.
+Nous constatons que la colonne "SEX" a été correctement transformée en une colonne catégorielle.
+
+#Question 9:
 
 ```{r}
-dim(data_ex)
-
-```
-
-Nous pouvons voir que le data frame contient 31 lignes.
-
-##Question 3 :
-
-```{r}
-phrases_a_rechercher <- c("Site olympique")
-resultat_olymp <- data_ex[grep(paste(phrases_a_rechercher, collapse="|"), data_ex$sites_olympiques_paralympiques), ]
-print(nrow(resultat_olymp))
-print(table(resultat_olymp$sites_olympiques_paralympiques))
-```
-
-Il est notable qu'il existe précisément 26 sites olympiques, dont 16 sont également désignés comme sites paralympiques.
-
-##Question 4 :
-
-```{r}
-phrases_a_rechercher <- c("Site paralympique")
-resultat_para <- data_ex[grep(paste(phrases_a_rechercher, collapse="|"), data_ex$sites_olympiques_paralympiques), ]
-print(nrow(resultat_para))
-print(table(resultat_para$sites_olympiques_paralympiques))
-```
-
-Il est observé qu'il existe précisément 19 sites paralympiques, parmi lesquels 16 sont simultanément désignés comme sites olympiques.
-
-##Question 5 : 
-
-```{r}
-resultat_sport <- data_ex[grep(",", data_ex$sports), ]
-print(nrow(resultat_sport))
-```
-
-Au sein de l'ensemble des sites, on constate la présence de 19 installations qui accueillent diverses disciplines sportives. Ces 19 sites comprennent :
-
-```{r}
-for (nom in resultat_sport$nom) {
-  cat("- ", nom, "\n")
-}
-```
-
-##Question 6 : 
-
-```{r}
-phrases_a_rechercher <- c("Site paralympique")
-resultat_para_filtre <- resultat_sport[grep(paste(phrases_a_rechercher, collapse="|"), resultat_sport$sites_olympiques_paralympiques), ]
-print(table(resultat_para_filtre$sites_olympiques_paralympiques))
-```
-
-Il est à noter que seize sites, dédiés à plusieurs disciplines sportives, accueillent également au moins une discipline sportive paralympique.
-
-##Question 7 : 
-
-```{r}
-data_ex$nb_virgules <- sapply(strsplit(as.character(data_ex$sports), ","), function(x) length(x) - 1)
-max_virgules <- max(data_ex$nb_virgules)
-lignes_max_virgules <- data_ex[data_ex$nb_virgules == max_virgules, ]
-print(max_virgules)
-print(nrow(lignes_max_virgules))
-```
-
-Nous observons la présence de huit sites, chacun proposant un accueil sportif pour trois disciplines, ce nombre représentant le maximum pour les Jeux Olympiques de Paris. Ces sites étant :
-
-```{r}
-for (nom in lignes_max_virgules$nom) {
-  cat("- ", nom, "\n")
-}
-```
-
-##Question 8 : 
-
-```{r}
-data_ex$nb_sports <- strsplit (as.character(data_ex$sports), ",")
+olympics_athletes <- olympics_athletes |> 
+  separate_wider_delim(Games, delim = " ", names = c("Year", "isSummer"))
 ```
 
 ```{r}
-disciplines <- unique(unlist(data_ex$nb_sports))
-sites_disciplines <- numeric(length = length(disciplines))
+olympics_athletes$Year <- as.integer(olympics_athletes$Year)
+str(olympics_athletes$Year)
+```
 
-for (i in seq_along(disciplines)) {
-  sites_disciplines[i] <- sum(sapply(data_ex$nb_sports, function(x) disciplines[i] %in% x))
-}
+Le type de la colonne "Years" a été effectivement converti en entier.
 
-max_discipline_sites <- disciplines[which.max(sites_disciplines)]
-max_sites_discipline <- data_ex[sapply(data_ex$nb_sports, function(x) max_discipline_sites %in% x),]
+```{r}
+olympics_athletes <- olympics_athletes |> 
+  mutate(isSummer = ifelse(isSummer == "Summer", TRUE, FALSE))
+```
 
+#Question 10:
+
+```{r}
+age_edition <- olympics_athletes |> 
+  filter(isSummer) |> 
+  group_by(Year) |> 
+  summarize(Moyenne_Age = mean(Age, na.rm = TRUE))
+print(age_edition)
 ```
 
 ```{r}
-cat("La discipline", max_discipline_sites, "sera celle qui se déroulera sur le plus grand nombre de sites.", "\n")
-cat("Les sites associés à cette discipline sont :\n",
-    paste("- ", max_sites_discipline$nom, collapse = "\n"), "\n")
-```
-
-##Question 9 : 
-
-Séparation de la colonnes géo_point en 2 afin d'avoir les latitudes et longitudes séparer.
-
-```{r}
-geo_coords <- strsplit(as.character(data_ex$geo_point), ",")
-data_ex$geo_lat <- as.numeric(sapply(geo_coords, function(x) x[1]))
-data_ex$geo_lon <- as.numeric(sapply(geo_coords, function(x) x[2]))
-data_ex$geo_point <- NULL
-```
-
-Par conséquent, nous identifions les sites les plus proches à vol d'oiseau.
-
-```{r}
-haversine_distance <- function(lat1, lon1, lat2, lon2) {
-  distm(c(lon1, lat1), c(lon2, lat2), fun = distHaversine)
-}
-min_distance <- Inf
-nom_site1 <- ''
-nom_site2 <- ''
-for (i in 1:(nrow(data_ex) - 1)) {
-  for (j in (i + 1):nrow(data_ex)) {
-    distance <- haversine_distance(data_ex$geo_lat[i], data_ex$geo_lon[i], data_ex$geo_lat[j], data_ex$geo_lon[j])
-        if (distance < min_distance) {
-      min_distance <- distance
-      nom_site1 <- data_ex$nom[i]
-      nom_site2 <- data_ex$nom[j]
-    }
-  }
-}
+jeune <- age_edition[which.min(age_edition$Moyenne_Age), ]
+cat(paste("L'édition comprenant les athlètes les plus jeunes est :", jeune$Year))
 ```
 
 ```{r}
-cat("Les deux sites les plus proches sont :", nom_site1, "et", nom_site2, "\n")
+vieux <- age_edition[which.max(age_edition$Moyenne_Age), ]
+cat(paste("L'édition comprenant les athlètes les plus vieux est :", vieux$Year))
+
 ```
 
-## Question 10 :
-
-Nous identifions les sites les plus éloignés à vol d'oiseau.
+#Question 11:
 
 ```{r}
-haversine_distance <- function(lat1, lon1, lat2, lon2) {
-  distm(c(lon1, lat1), c(lon2, lat2), fun = distHaversine)
-}
-max_distance <- 0
-nom_site1 <- ''
-nom_site2 <- ''
-for (i in 1:(nrow(data_ex) - 1)) {
-  for (j in (i + 1):nrow(data_ex)) {
-    distance <- haversine_distance(data_ex$geo_lat[i], data_ex$geo_lon[i], data_ex$geo_lat[j], data_ex$geo_lon[j])
-        if (distance > max_distance) {
-      max_distance <- distance
-      nom_site1 <- data_ex$nom[i]
-      nom_site2 <- data_ex$nom[j]
-    }
-  }
+olympics_femmes <- olympics_athletes |> 
+  filter(Sex == "F")
+```
+
+```{r}
+discipline_moyenne_taille <- olympics_femmes |> 
+  group_by(Sport)  |> 
+  summarize(Taille_Moyenne = mean(Height, na.rm = TRUE))  |> 
+  slice(which.max(Taille_Moyenne))
+```
+
+```{r}
+cat("Les athlètes les plus grandes sont retrouvées dans la discipline", discipline_moyenne_taille$Sport,
+    "\nElles font en moyenne environ", round(discipline_moyenne_taille$Taille_Moyenne, 2), "cm.")
+```
+
+```{r}
+discipline_moyenne_taille_edition <- olympics_femmes %>%
+  group_by(Year, Sport) %>%
+  summarize(Taille_Moyenne = mean(Height, na.rm = TRUE)) %>%
+  slice(which.max(Taille_Moyenne))
+```
+
+```{r}
+cat("La discipline avec la taille moyenne la plus grande pour chaque édition est :\n")
+for (year in unique(discipline_moyenne_taille_edition$Year)) {
+  discipline_edition <- discipline_moyenne_taille_edition[discipline_moyenne_taille_edition$Year == year, ]
+  cat(sprintf("- %s : %s\n", year, discipline_edition$Sport))
 }
 ```
 
 ```{r}
-cat("Les deux sites les plus loins sont :", nom_site1, "et", nom_site2, "\n")
+nbr_taille_discipline <- discipline_moyenne_taille_edition |> 
+  group_by(Sport)  |> 
+  summarize(Nombre_Fois = n()) |> 
+  arrange(desc(Nombre_Fois))
+
+print(nbr_taille_discipline)
+
 ```
 
-## Question 11 :
+Nous pouvons ainsi constater que le basket-ball arrive en première place avec un total de 10 éditions, suivi du bobsleigh, de l'escrime et du volleyball avec un total respectif de 4 éditions chacun.
+
+#Question 12:
 
 ```{r}
-barycentre_lat <- sum(data_ex$geo_lat) / nrow(data_ex)
-barycentre_lon <- sum(data_ex$geo_lon) / nrow(data_ex)
-cat("Les coordonnées du barycentre sont : (", barycentre_lat, ",", barycentre_lon, ")\n")
+date <- c("5 Août 2016", "20 Août 2016", "23 Juillet 2021", "8 Août 2021", "26 Juillet 2024", "11 Août 2024")
+date_mois <- "\\b\\d{1,2} (?:Janvier|Février|Mars|Avril|Mai|Juin|Juillet|Août|Septembre|Octobre|Novembre|Décembre) \\d{4}\\b"
+date_JO <- str_extract_all(date, date_mois)
+print(date_JO)
+```
+
+#Question 13:
+
+```{r}
+mois <- c("Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre")
+numeros_mois <- sprintf("\\b%s\\b", paste(seq_along(mois), collapse = "|"))
+date_numeros_JO<- str_replace_all(date, setNames(as.character(seq_along(mois)), mois), fixed(numeros_mois))
+print(date_numeros_JO)
+```
+
+#Question 14:
+
+```{r}
+JO_date <- dmy(date_numeros_JO)
+print(JO_date)
+```
+
+#Question 15:
+
+```{r}
+rio_tokyo <- difftime(JO_date[3], JO_date[2], units = "days")
+semaine_rio_tokyo <- as.numeric(rio_tokyo) / 7
+cat(paste("La clôture des Jeux de Rio et le début de ceux de Tokyo sont séparés exactement de",rio_tokyo,"jours. Cela équivaut à",round(semaine_rio_tokyo, 0),"semaine."))
 ```
 
 ```{r}
-coords <- data.frame(lat = barycentre_lat, lon = barycentre_lon)
-result <- tidygeocoder::reverse_geocode(coords, lat = "lat", lon = "lon", method = "osm")
-cat("L'adresse correspondant aux coordonnées (", coords$lat, ",", coords$lon, ") est :\n", result$address, "\n")
-```
-
-Nous pouvons visualiser l'emplacement grâce à une carte :
-
-```{r}
-ma_carte <- leaflet() %>%
-  addTiles() %>%
-  addMarkers(lng = barycentre_lon, lat = barycentre_lat, popup = "Barycentre")
-ma_carte
+tokyo_paris <- difftime(JO_date[5], JO_date[4], units = "days")
+semaine_tokyo_paris <- as.numeric(tokyo_paris) / 7
+cat(paste("La clôture des Jeux de Tokyo et le début de ceux de Paris sont séparés exactement de",tokyo_paris,"jours. Cela équivaut à",round(semaine_tokyo_paris, 0),"semaine."))
 ```

@@ -3,7 +3,10 @@
     "listing": "/index.html",
     "items": [
       "/posts/post-with-code/index.html",
-      "/posts/Exercice quarto/index copie.html",
+      "/posts/Exercice quarto/exercice 1/index copie.html",
+      "/posts/Exercice quarto/exercice 2/index copie 2.html",
+      "/posts/Exercice quarto/exercice 3/index copie.html",
+      "/posts/Exercice quarto/exercice 4/index copie 3.html",
       "/posts/welcome/index.html"
     ]
   }
