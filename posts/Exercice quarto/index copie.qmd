@@ -1,16 +1,12 @@
 ---
-title: "Exercice - Semaine 1"
-format: html
-editor: visual
-document:
-  css: |
-    body {
-      text-align: justify;
-    }
+title: "Exercice antérieure"
+author: "Rodolphe MOCAER"
+date: "2024-03-02"
+categories: [news]
 ---
 
-## Exercice 1 :
-
+# Exercice 1
+ 
 ```{r}
 library(geosphere)
 library(tidygeocoder)
@@ -18,17 +14,17 @@ library(leaflet)
 
 ```
 
-**#Question 1 :**
+##Question 1 :
 
 ```{r}
 
 
 ```
 
-**#Question 2**
+##Question 2 :
 
 ```{r}
-data_ex = read.csv2("paris-2024-sites-olympiques-et-paralympiques-franciliens.csv")
+data_ex = read.csv2("/Users/rododo/Desktop/ECAP/R avancé/paris-2024-sites-olympiques-et-paralympiques-franciliens.csv")
 data_ex = data.frame(data_ex)
 ```
 
@@ -46,7 +42,7 @@ dim(data_ex)
 
 Nous pouvons voir que le data frame contient 31 lignes.
 
-**#Question 3 :**
+##Question 3 :
 
 ```{r}
 phrases_a_rechercher <- c("Site olympique")
@@ -57,7 +53,7 @@ print(table(resultat_olymp$sites_olympiques_paralympiques))
 
 Il est notable qu'il existe précisément 26 sites olympiques, dont 16 sont également désignés comme sites paralympiques.
 
-**#Question 4 :**
+##Question 4 :
 
 ```{r}
 phrases_a_rechercher <- c("Site paralympique")
@@ -68,7 +64,7 @@ print(table(resultat_para$sites_olympiques_paralympiques))
 
 Il est observé qu'il existe précisément 19 sites paralympiques, parmi lesquels 16 sont simultanément désignés comme sites olympiques.
 
-**#Question 5 :**
+##Question 5 : 
 
 ```{r}
 resultat_sport <- data_ex[grep(",", data_ex$sports), ]
@@ -83,7 +79,7 @@ for (nom in resultat_sport$nom) {
 }
 ```
 
-**#Question 6 :**
+##Question 6 : 
 
 ```{r}
 phrases_a_rechercher <- c("Site paralympique")
@@ -93,7 +89,7 @@ print(table(resultat_para_filtre$sites_olympiques_paralympiques))
 
 Il est à noter que seize sites, dédiés à plusieurs disciplines sportives, accueillent également au moins une discipline sportive paralympique.
 
-**#Question 7 :**
+##Question 7 : 
 
 ```{r}
 data_ex$nb_virgules <- sapply(strsplit(as.character(data_ex$sports), ","), function(x) length(x) - 1)
@@ -111,7 +107,7 @@ for (nom in lignes_max_virgules$nom) {
 }
 ```
 
-**#Question 8 :**
+##Question 8 : 
 
 ```{r}
 data_ex$nb_sports <- strsplit (as.character(data_ex$sports), ",")
@@ -136,7 +132,7 @@ cat("Les sites associés à cette discipline sont :\n",
     paste("- ", max_sites_discipline$nom, collapse = "\n"), "\n")
 ```
 
-**#Question 9 :**
+##Question 9 : 
 
 Séparation de la colonnes géo_point en 2 afin d'avoir les latitudes et longitudes séparer.
 
@@ -172,7 +168,7 @@ for (i in 1:(nrow(data_ex) - 1)) {
 cat("Les deux sites les plus proches sont :", nom_site1, "et", nom_site2, "\n")
 ```
 
-**#Question 10 :**
+## Question 10 :
 
 Nous identifions les sites les plus éloignés à vol d'oiseau.
 
@@ -199,7 +195,7 @@ for (i in 1:(nrow(data_ex) - 1)) {
 cat("Les deux sites les plus loins sont :", nom_site1, "et", nom_site2, "\n")
 ```
 
-**#Question 11 :**
+## Question 11 :
 
 ```{r}
 barycentre_lat <- sum(data_ex$geo_lat) / nrow(data_ex)
