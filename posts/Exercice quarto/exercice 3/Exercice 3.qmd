@@ -5,23 +5,23 @@ date: "2024-03-02"
 categories: [news]
 ---
 
-![](/Users/rododo/Desktop/Quarto_blog/My_blog/docs/posts/Exercice quarto/exercice 3/photo_10.jpg)
+![](photo_10.jpg)
 
-![](/Users/rododo/Desktop/Quarto_blog/My_blog/docs/posts/Exercice quarto/exercice 3/photo_9.jpg)
+![](photo_9.jpg)
 
-![](/Users/rododo/Desktop/Quarto_blog/My_blog/docs/posts/Exercice quarto/exercice 3/photo_8.jpg)
+![](photo_8.jpg)
 
-![](/Users/rododo/Desktop/Quarto_blog/My_blog/docs/posts/Exercice quarto/exercice 3/photo_7.jpg)
+![](photo_7.jpg)
 
-![](/Users/rododo/Desktop/Quarto_blog/My_blog/docs/posts/Exercice quarto/exercice 3/photo_6.jpg)
+![](photo_6.jpg)
 
-![](/Users/rododo/Desktop/Quarto_blog/My_blog/docs/posts/Exercice quarto/exercice 3/photo_5.jpg)
+![](photo_5.jpg)
 
-![](/Users/rododo/Desktop/Quarto_blog/My_blog/docs/posts/Exercice quarto/exercice 3/photo_4.jpg)
+![](photo_4.jpg)
 
-![](/Users/rododo/Desktop/Quarto_blog/My_blog/docs/posts/Exercice quarto/exercice 3/photo_3.jpg)
+![](photo_3.jpg)
 
-![](/Users/rododo/Desktop/Quarto_blog/My_blog/docs/posts/Exercice quarto/exercice 3/photo_2.jpg)
+![](photo_2.jpg)
 
-![](/Users/rododo/Desktop/Quarto_blog/My_blog/docs/posts/Exercice quarto/exercice 3/photo_1.jpg)
+![](photo_1.jpg)
 
