@@ -1,10 +1,27 @@
 ---
 title: "Exercice 3"
+author: "Rodolphe MOCAER"
+date: "2024-03-02"
+categories: [news]
 ---
 
-![](Exercice - -Semaine-3_page-0001.jpg)
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice%20quarto/exercice%203/photo_10.jpg)
 
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice%20quarto/exercice%203/photo_9.jpg)
 
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice%20quarto/exercice%203/photo_8.jpg)
 
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice%20quarto/exercice%203/photo_7.jpg)
 
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice%20quarto/exercice%203/photo_6.jpg)
+
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice%20quarto/exercice%203/photo_5.jpg)
+
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice%20quarto/exercice%203/photo_4.jpg)
+
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice%20quarto/exercice%203/photo_3.jpg)
+
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice%20quarto/exercice%203/photo_2.jpg)
+
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice%20quarto/exercice%203/photo_1.jpg)
 
