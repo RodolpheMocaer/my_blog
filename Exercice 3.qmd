@@ -2,4 +2,27 @@
 title: "Exercice 3"
 ---
 
-![](photo_1.jpg)
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice quarto/exercice 3/photo_10.jpg)
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice quarto/exercice 3/photo_9.jpg)
+
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice quarto/exercice 3/photo_8.jpg)
+
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice quarto/exercice 3/photo_7.jpg)
+
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice quarto/exercice 3/photo_6.jpg)
+
+
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice quarto/exercice 3/photo_5.jpg)
+
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice quarto/exercice 3/photo_4.jpg)
+
+
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice quarto/exercice 3/photo_3.jpg)
+
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice quarto/exercice 3/photo_2.jpg)
+
+![](/Users/rododo/Desktop/Quarto_blog/My_blog/posts/Exercice quarto/exercice 3/photo_1.jpg)
+
+
+
+
