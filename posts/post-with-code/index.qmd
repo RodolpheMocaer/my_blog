@@ -28,7 +28,6 @@ Pour installer le package `olympicsWeather` depuis GitHub, vous pouvez utiliser 
 library(olympicsWeather)
 ```
 
-
 Nous pouvons grâce à notre packages visualiser les données météorologique pour le satde de france.
 
 ```{r}
@@ -45,16 +44,10 @@ Graphique_pluie(météo_tahiti)
 Graphique_temperature(météo_tahiti)
 ```
 
-Enfin, nous pouvons  visualiser les données météorologique pour les points GPS suivant : .
-43.276703, 5.334791.
+Enfin, nous pouvons visualiser les données météorologique pour les points GPS suivant : . 43.276703, 5.334791.
 
 ```{r}
 météo_gps <- get_forecast(c(43.276703,5.334791))
 Graphique_pluie(météo_gps)
 Graphique_temperature(météo_gps)
 ```
-
-
-
-
-

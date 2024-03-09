@@ -1,0 +1,5 @@
+---
+title: "Exercice 3"
+---
+
+![](photo_1.jpg)
