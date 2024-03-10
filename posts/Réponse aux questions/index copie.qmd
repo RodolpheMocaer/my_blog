@@ -1,0 +1,16 @@
+---
+title: "Bienvenue sur mon Blog"
+author: "Rodolphe MOCAER"
+date: "2024-03-02"
+categories: [news]
+---
+
+#Création du projet sous github
+
+#Question 1
+
+La structure du projet "my_blog" créé sous RStudio en utilisant le template Quarto Blog avec les options renv et git cochées serait généralement composée de : - Dossier racine (my_blog/) - Fichiers de configuration comme : .Rproj : Le fichier du projet RStudio qui sauvegarde les paramètres spécifiques au projet, ou bien quarto.yaml : Le fichier de configuration YAML spécifique à Quarto Blog. - ...
+
+#Question 6
+
+Avec un commit puis un push, nous pouvons voir : Les fichiers du projet, tels qu'ils sont organisés dans notre dépôt local.
