@@ -88,6 +88,13 @@
     "href": "index.html",
     "title": "Bienvenue sur Mon Blog",
     "section": "",
-    "text": "Bienvenue sur Mon Blog\nVoici les étapes qui m’ont permis de créer mon blog.\n\n\nCréation du projet de sites sous github\n\n\nLa mise en place du packages sous github\n\n\nLe post de blog.\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\nVisualisation météorologique\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nMar 5, 2024\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nExercice 1\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nMar 2, 2024\n\n\nRodolphe MOCAER\n\n\n\n\n\n\n  \n\n\n\n\nExercice 2\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nMar 2, 2024\n\n\nRodolphe MOCAER\n\n\n\n\n\n\n  \n\n\n\n\nExercice 3\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nMar 2, 2024\n\n\nRodolphe MOCAER\n\n\n\n\n\n\n  \n\n\n\n\nExercice 4\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nMar 2, 2024\n\n\nRodolphe MOCAER\n\n\n\n\n\n\n  \n\n\n\n\nBienvenue sur mon Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nMar 2, 2024\n\n\nRodolphe MOCAER\n\n\n\n\n\n\nNo matching items"
+    "text": "Bienvenue sur Mon Blog\nVoici les étapes qui m’ont permis de créer mon blog.\n\n\nCréation du projet de sites sous github\n\n\nLa mise en place du packages sous github\n\n\nLe post de blog.\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\nVisualisation météorologique\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nMar 5, 2024\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nBienvenue sur mon Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nMar 2, 2024\n\n\nRodolphe MOCAER\n\n\n\n\n\n\n  \n\n\n\n\nExercice 1\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nMar 2, 2024\n\n\nRodolphe MOCAER\n\n\n\n\n\n\n  \n\n\n\n\nExercice 2\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nMar 2, 2024\n\n\nRodolphe MOCAER\n\n\n\n\n\n\n  \n\n\n\n\nExercice 3\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nMar 2, 2024\n\n\nRodolphe MOCAER\n\n\n\n\n\n\n  \n\n\n\n\nBienvenue sur mon Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nMar 2, 2024\n\n\nRodolphe MOCAER\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/Réponse aux questions/index copie.html",
+    "href": "posts/Réponse aux questions/index copie.html",
+    "title": "Bienvenue sur mon Blog",
+    "section": "",
+    "text": "#Création du projet sous github\n#Question 1\nLa structure du projet “my_blog” créé sous RStudio en utilisant le template Quarto Blog avec les options renv et git cochées serait généralement composée de : - Dossier racine (my_blog/) - Fichiers de configuration comme : .Rproj : Le fichier du projet RStudio qui sauvegarde les paramètres spécifiques au projet, ou bien quarto.yaml : Le fichier de configuration YAML spécifique à Quarto Blog. - …\n#Question 6\nAvec un commit puis un push, nous pouvons voir : Les fichiers du projet, tels qu’ils sont organisés dans notre dépôt local."
   }
 ]
